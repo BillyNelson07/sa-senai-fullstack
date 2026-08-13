@@ -10,6 +10,7 @@ import Usuario from "./models/Usuario.js";
 import Funcionario from "./models/Funcionario.js";
 import funcionarioRoutes from "./routes/funcionarioRoutes.js";
 import usuarioRoutes from "./routes/usuarioRoutes.js";
+import corsConfig from "./config/corsConfig.js";
 
 dotenv.config();
 
@@ -21,7 +22,7 @@ const app = express();
 app.use(express.json());
 
 // Habilita o CORS para permitir que aplicações frontend (React, Vue, etc) acessem a API
-app.use(cors());
+app.use(cors(corsConfig));
 
 // Rota de verificação (Health Check)
 app.get("/", (req, res) => {

@@ -20,7 +20,7 @@ function App() {
 
     try {
       // Faz o POST para a rota de usuários configurada no axios
-      const response = await api.post("/api/usuarios", formData);
+      const response = await api.post("/usuarios", formData);
       setMensagem(`✅ Usuário ${response.data.nome} criado com sucesso!`);
 
       // Limpa os campos do formulário após o sucesso
