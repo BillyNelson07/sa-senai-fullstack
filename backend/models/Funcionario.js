@@ -17,7 +17,6 @@ const Funcionario = sequelize.define(
     },
     data_admissao: {
       // DATEONLY guarda apenas a data (YYYY-MM-DD).
-      // Se precisar de data e hora exata, mude para DataTypes.DATE
       type: DataTypes.DATEONLY,
       allowNull: false,
     },
@@ -51,7 +50,7 @@ const Funcionario = sequelize.define(
   {
     tableName: "funcionario",
     timestamps: true, // Cria automaticamente 'createdAt' e 'updatedAt'
-  },
+  }
 );
 
 // Exportando o modelo como uma variável constante

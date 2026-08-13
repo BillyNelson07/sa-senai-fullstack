@@ -47,6 +47,42 @@ const UsuarioServices = {
       throw new Error(erro.message || "Erro ao criar usuário.");
     }
   },
+  /**
+   * Faz login no sistema.
+   * @param {Object} { nome_usuario, senha } - Objeto contendo nome, nome_usuario e senha original.
+   * @returns {Object} O token JWT para acessar as funções do sistema.
+   */
+  async login({ nome_usuario, senha }) {
+    if (!nome_usuario || !senha) {
+      throw new Error("Dados incompletos!");
+    }
+
+    const usuarioValido = await Usuario.findOne({ where: { nome_usuario } });
+
+    if (!usuarioValido) {
+      throw new Error("Dados incorretos!");
+    }
+
+    const comparacaoDeSenhas = await bcrypt.compare(
+      senha,
+      usuarioValido.senha_hash
+    );
+
+    if (!comparacaoDeSenhas) {
+      throw new Error("Dados incorretos!");
+    }
+
+    const payloadPraGerarTokenJWT = {
+      id: usuarioValido.id,
+      nome_usuario: usuarioValido.nome_usuario,
+    };
+    const segredoJWT = process.env.JWT_SECRET;
+    const opcoesJWT = { expiresIn: process.env.JWT_EXPIRES_IN };
+
+    const tokenJWT = jwt.sign(payloadPraGerarTokenJWT, segredoJWT, opcoesJWT);
+
+    return tokenJWT;
+  },
 };
 
 export default UsuarioServices;

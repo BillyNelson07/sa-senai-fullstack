@@ -20,7 +20,7 @@ const Usuario = sequelize.define(
       allowNull: false,
       unique: true,
     },
-    senha: {
+    senha_hash: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -28,7 +28,7 @@ const Usuario = sequelize.define(
   {
     tableName: "usuario",
     timestamps: true,
-  },
+  }
 );
 
 // Exportando o modelo como uma variável
