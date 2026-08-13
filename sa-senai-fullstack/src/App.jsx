@@ -1,122 +1,116 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+// src/App.jsx
+import { useState } from "react";
+import api from "./services/api";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [formData, setFormData] = useState({
+    nome: "",
+    nome_usuario: "",
+    senha: "",
+  });
+
+  const [mensagem, setMensagem] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Evita que a página recarregue
+
+    try {
+      // Faz o POST para a rota de usuários configurada no axios
+      const response = await api.post("/api/usuarios", formData);
+      setMensagem(`✅ Usuário ${response.data.nome} criado com sucesso!`);
+
+      // Limpa os campos do formulário após o sucesso
+      setFormData({ nome: "", nome_usuario: "", senha: "" });
+    } catch (error) {
+      // Captura a mensagem de erro que vem do backend
+      const erroApi =
+        error.response?.data?.erro || "Erro ao conectar com o servidor.";
+      setMensagem(`❌ ${erroApi}`);
+    }
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
+    <div
+      style={{
+        padding: "20px",
+        maxWidth: "400px",
+        margin: "0 auto",
+        fontFamily: "sans-serif",
+      }}
+    >
+      <h2>Cadastrar Novo Usuário</h2>
+
+      <form
+        onSubmit={handleSubmit}
+        style={{ display: "flex", flexDirection: "column", gap: "15px" }}
+      >
+        <input
+          type="text"
+          name="nome"
+          placeholder="Nome Completo"
+          value={formData.nome}
+          onChange={handleChange}
+          required
+          style={{
+            padding: "8px",
+            borderRadius: "4px",
+            border: "1px solid #ccc",
+          }}
+        />
+
+        <input
+          type="text"
+          name="nome_usuario"
+          placeholder="Nome de Usuário"
+          value={formData.nome_usuario}
+          onChange={handleChange}
+          required
+          style={{
+            padding: "8px",
+            borderRadius: "4px",
+            border: "1px solid #ccc",
+          }}
+        />
+
+        <input
+          type="password"
+          name="senha"
+          placeholder="Senha"
+          value={formData.senha}
+          onChange={handleChange}
+          required
+          style={{
+            padding: "8px",
+            borderRadius: "4px",
+            border: "1px solid #ccc",
+          }}
+        />
+
         <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
+          type="submit"
+          style={{
+            padding: "10px",
+            backgroundColor: "#007BFF",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
         >
-          Count is {count}
+          Salvar Usuário
         </button>
-      </section>
+      </form>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      {/* Renderiza a mensagem de sucesso ou erro apenas se ela existir */}
+      {mensagem && (
+        <p style={{ marginTop: "20px", fontWeight: "bold" }}>{mensagem}</p>
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
