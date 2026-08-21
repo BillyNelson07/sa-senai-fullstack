@@ -7,9 +7,7 @@ import sequelize from "./config/database.js";
 
 // Importa os modelos para garantir que o Sequelize os conheça na hora da sincronização
 import Usuario from "./models/Usuario.js";
-import Funcionario from "./models/Funcionario.js";
-import funcionarioRoutes from "./routes/funcionarioRoutes.js";
-import usuarioRoutes from "./routes/usuarioRoutes.js";
+import Atividade from "./models/Atividade.js";
 import corsConfig from "./config/corsConfig.js";
 
 dotenv.config();
@@ -31,9 +29,6 @@ app.get("/", (req, res) => {
     message: "Servidor Express está rodando perfeitamente!",
   });
 });
-
-app.use("/api/funcionarios", funcionarioRoutes);
-app.use("/api/usuarios", usuarioRoutes);
 
 // --- INICIALIZAÇÃO DO SERVIDOR E BANCO DE DADOS ---
 
