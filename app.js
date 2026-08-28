@@ -10,6 +10,9 @@ import Usuario from "./models/Usuario.js";
 import Atividade from "./models/Atividade.js";
 import corsConfig from "./config/corsConfig.js";
 
+import usuarioRoutes from "./routes/usuarioRoutes.js";
+import atividadeRoutes from "./routes/atividadeRoutes.js";
+
 dotenv.config();
 
 const app = express();
@@ -29,6 +32,9 @@ app.get("/", (req, res) => {
     message: "Servidor Express está rodando perfeitamente!",
   });
 });
+
+app.use("/api/usuarios", usuarioRoutes);
+app.use("/api/atividades", atividadeRoutes);
 
 // --- INICIALIZAÇÃO DO SERVIDOR E BANCO DE DADOS ---
 

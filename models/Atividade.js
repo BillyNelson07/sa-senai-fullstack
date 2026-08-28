@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import sequelize from '../config/database.js'; // Importe a conexão configurada anteriormente
+import sequelize from '../config/database.js';
 
 const Atividade = sequelize.define('Atividade', {
   id: {
