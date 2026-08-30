@@ -1,0 +1,116 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 18, 32, 0.55);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 20px;
+}
+
+.modal {
+  width: 100%;
+  max-width: 380px;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal);
+  padding: 26px 26px 24px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.title {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+.closeBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--dark-06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.closeBtn svg {
+  width: 15px;
+  height: 15px;
+  stroke: var(--dark);
+}
+.closeBtn:hover {
+  background: var(--dark-10);
+}
+
+.field {
+  margin-bottom: 16px;
+}
+.field label {
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--dark-65);
+  margin-bottom: 6px;
+}
+.field input {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--dark-20);
+  font-size: 0.92rem;
+  color: var(--dark);
+}
+.field input:focus {
+  border-color: var(--accent);
+}
+
+/* Demonstrates the error state required by regras 4 e 5 do login */
+.field.hasError input {
+  border-color: var(--red);
+}
+.fieldError {
+  font-size: 0.76rem;
+  color: var(--red);
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.btn {
+  flex: 1;
+  padding: 11px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+.cancel {
+  background: transparent;
+  border: 1.5px solid var(--dark);
+  color: var(--dark);
+}
+.cancel:hover {
+  background: var(--dark-06);
+}
+.primary {
+  background: var(--dark);
+  border: 1.5px solid var(--dark);
+  color: var(--white);
+}
+.primary:hover {
+  background: #242424;
+}

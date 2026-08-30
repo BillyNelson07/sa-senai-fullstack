@@ -1,0 +1,18 @@
+.view {
+  flex: 1;
+  padding: 24px 32px 40px;
+}
+
+.feed {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+@media (max-width: 560px) {
+  .view {
+    padding: 18px 18px 32px;
+  }
+}
