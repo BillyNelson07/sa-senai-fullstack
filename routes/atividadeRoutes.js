@@ -1,9 +1,9 @@
-import express from 'express';
-import AtividadeController from '../controllers/atividadeController.js';
+import express from "express";
+import AtividadeController from "../controllers/atividadeController.js";
 
 const router = express.Router();
 
-router.post('/atividades', AtividadeController.criar);
-router.get('/atividades', AtividadeController.buscarTodas);
+router.post("/post", AtividadeController.criar);
+router.get("/get", AtividadeController.buscarTodas);
 
 export default router;

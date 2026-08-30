@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(cors(corsConfig));
 
 // Rota de verificação (Health Check)
-app.get("/", (req, res) => {
+app.get("/api/health", (req, res) => {
   res.status(200).json({
     status: "success",
     message: "Servidor Express está rodando perfeitamente!",
