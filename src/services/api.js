@@ -14,4 +14,18 @@ export const api = axios.create({
   },
 });
 
+/**
+ * POST /login — usado pela página de Login (src/pages/Login/Login.jsx).
+ * @param {string} email
+ * @param {string} senha
+ * @returns {Promise<{ token: string, usuario: object }>}
+ */
+export async function login(email, senha) {
+  const { data } = await api.post("/usuarios/login", { email, senha });
+  if (data.token) {
+    localStorage.setItem("saepsaude:token", data.token);
+  }
+  return data;
+}
+
 export default api;

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Home.module.css';
 import FilterTabs from '../../components/FilterTabs/FilterTabs';
 import ActivityCard from '../../components/ActivityCard/ActivityCard';
@@ -7,7 +8,8 @@ import { filterOptions, feedActivities } from '../../data/mockData';
 import { useAuth } from '../../context/AuthContext';
 
 export default function Home() {
-  const { isLoggedIn, openLoginModal } = useAuth();
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState(filterOptions[0]);
   const [page, setPage] = useState(1);
   const [likedMap, setLikedMap] = useState(
@@ -15,10 +17,10 @@ export default function Home() {
   );
   const [openCommentId, setOpenCommentId] = useState(null);
 
-  // Regra 8: qualquer interação sem estar logado deve abrir o modal de login.
+  // Regra 8: qualquer interação sem estar logado deve levar para a página de login.
   const guard = (fn) => (...args) => {
     if (!isLoggedIn) {
-      openLoginModal();
+      navigate('/login');
       return;
     }
     fn(...args);

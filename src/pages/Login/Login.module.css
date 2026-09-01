@@ -1,0 +1,184 @@
+.wrapper {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.brandPane {
+  background: var(--dark);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.brandMark {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(155deg, var(--accent), #6a5cd6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+.brandMark svg {
+  width: 28px;
+  height: 28px;
+}
+
+.brandTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  max-width: 360px;
+}
+
+.brandSubtitle {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 340px;
+  line-height: 1.5;
+}
+
+.ringDecor {
+  position: absolute;
+  right: -60px;
+  bottom: -60px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  border: 24px solid rgba(255, 255, 255, 0.06);
+}
+.ringDecor::after {
+  content: '';
+  position: absolute;
+  inset: -48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.formPane {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: var(--white);
+}
+
+.formCard {
+  width: 100%;
+  max-width: 360px;
+}
+
+.title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+.subtitle {
+  font-size: 0.88rem;
+  color: var(--dark-65);
+  margin-bottom: 28px;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+.field label {
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--dark-65);
+  margin-bottom: 6px;
+}
+.field input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--dark-20);
+  font-size: 0.92rem;
+  color: var(--dark);
+}
+.field input:focus {
+  border-color: var(--accent);
+}
+.field.hasError input {
+  border-color: var(--red);
+}
+.fieldError {
+  font-size: 0.78rem;
+  color: var(--red);
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.formError {
+  background: var(--red-10);
+  color: var(--red);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.submit {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--dark);
+  color: var(--white);
+  border: none;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+.submit:hover:not(:disabled) {
+  background: #242424;
+}
+.submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.backLink {
+  display: block;
+  text-align: center;
+  margin-top: 18px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--dark-65);
+  text-decoration: none;
+}
+.backLink:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 860px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+  }
+  .brandPane {
+    padding: 40px 32px;
+    min-height: 220px;
+    justify-content: flex-end;
+  }
+  .brandTitle {
+    font-size: 1.5rem;
+  }
+  .ringDecor {
+    display: none;
+  }
+  .formPane {
+    padding: 32px 24px 48px;
+  }
+}

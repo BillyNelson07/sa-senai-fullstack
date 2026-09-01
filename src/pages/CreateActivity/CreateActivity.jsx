@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import styles from "./CreateActivity.module.css";
 import { api } from "../../services/api"; // Importando a instância do axios
 import ActivityCard from "../../components/ActivityCard/ActivityCard";
@@ -19,9 +18,17 @@ export default function CreateActivity() {
     const buscarAtividades = async () => {
       try {
         const response = await api.get("/atividades/get");
-        setAtividades(response.data);
+        
+        // Garante que pegamos um array, mesmo se a API retornar dentro de um objeto ou vier vazia
+        const dadosRecebidos = response.data;
+        const listaAtividades = Array.isArray(dadosRecebidos) 
+          ? dadosRecebidos 
+          : dadosRecebidos.atividades || [];
+
+        setAtividades(listaAtividades);
       } catch (error) {
         console.error("Erro ao carregar as atividades:", error);
+        setAtividades([]); // Evita que vire undefined se a API falhar
       }
     };
 
