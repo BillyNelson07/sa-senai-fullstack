@@ -16,8 +16,8 @@ const usuarioController = {
 
   async login(req, res) {
     try {
-      const { nome_usuario, senha } = req.body;
-      const token = await UsuarioServices.login({ nome_usuario, senha });
+      const { email, senha } = req.body;
+      const token = await UsuarioServices.login({ email, senha });
 
       // Retorna status 200 (OK) e o token gerado
       return res.status(200).json({ token: token });

@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import sequelize from "sequelize";
 import Usuario from "../models/Usuario.js";
 
@@ -41,17 +42,18 @@ const UsuarioServices = {
 
     return usuarioRetorno;
   },
+
   /**
-   * Faz login no sistema.
-   * @param {Object} { nome_usuario, senha } - Objeto contendo nome, nome_usuario e senha original.
-   * @returns {Object} O token JWT para acessar as funções do sistema.
+   * Faz login no sistema usando email + senha.
+   * @param {Object} { email, senha } - Credenciais informadas pelo usuário.
+   * @returns {String} O token JWT para acessar as funções do sistema.
    */
-  async login({ nome_usuario, senha }) {
-    if (!nome_usuario || !senha) {
+  async login({ email, senha }) {
+    if (!email || !senha) {
       throw new Error("Dados incompletos!");
     }
 
-    const usuarioValido = await Usuario.findOne({ where: { nome_usuario } });
+    const usuarioValido = await Usuario.findOne({ where: { email } });
 
     if (!usuarioValido) {
       throw new Error("Dados incorretos!");
@@ -59,7 +61,7 @@ const UsuarioServices = {
 
     const comparacaoDeSenhas = await bcrypt.compare(
       senha,
-      usuarioValido.senha_hash,
+      usuarioValido.senha,
     );
 
     if (!comparacaoDeSenhas) {
@@ -68,6 +70,7 @@ const UsuarioServices = {
 
     const payloadPraGerarTokenJWT = {
       id: usuarioValido.id,
+      email: usuarioValido.email,
       nome_usuario: usuarioValido.nome_usuario,
     };
     const segredoJWT = process.env.JWT_SECRET;
