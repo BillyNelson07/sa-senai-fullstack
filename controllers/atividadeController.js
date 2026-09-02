@@ -25,6 +25,19 @@ const AtividadeController = {
       // Retorna status 500 (Internal Server Error) se houver falha no servidor
       return res.status(500).json({ erro: erro.message });
     }
+  },
+
+  async buscarTodasDeUmUsuario(req, res) {
+    try {
+      const usuarioId = req.params.usuario_id;
+      const atividades = await AtividadeService.buscarTodasAtividadesDeUmUsuario(usuarioId);
+      
+      // Retorna status 200 (OK) e a lista de atividades
+      return res.status(200).json(atividades);
+    } catch (erro) {
+      // Retorna status 500 (Internal Server Error) se houver falha no servidor
+      return res.status(500).json({ erro: erro.message });
+    }
   }
 
 };

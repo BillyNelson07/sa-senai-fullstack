@@ -14,7 +14,6 @@ const authMiddleware = {
 
     try {
       const dados = jwt.verify(token, process.env.JWT_SECRET);
-      //log para retirar o id do usuario e colocar no body do create() para criar o boleto, no sistema real vai ser retirado dos cookies
 
       req.usuario_id = dados; // disponibiliza os dados do token no req
 

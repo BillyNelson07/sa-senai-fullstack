@@ -18,6 +18,19 @@ const AtividadeService = {
     } catch (erro) {
       throw new Error('Erro ao buscar as atividades: ' + erro.message);
     }
+  },
+
+  async buscarTodasAtividadesDeUmUsuario(usuarioId) {
+    try {
+      const atividades = await Atividade.findAll({
+        where: {
+          usuario_id: usuarioId
+        }
+      });
+      return atividades;
+    } catch (erro) {
+      throw new Error('Erro ao buscar as atividades: ' + erro.message);
+    }
   }
 
 };
